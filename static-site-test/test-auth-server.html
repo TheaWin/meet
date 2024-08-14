@@ -52,42 +52,58 @@
   <!-- New line of Code for Script starts here -->
   <script type="text/javascript">
     // ---------------Step 1
+
+    // get references to the button, result display element, and link element in the HTML
     const getAuthUrlButton = document.getElementById("getAuthUrlButton");
     const resultElement = document.getElementById("result");
     const resultLink = document.getElementById("authURL");
-    // Replace this with your own endpoint
+
+    // Define the endupoint URL that provides the authorization URL
     const getAuthURL = "https://xwijd65ps9.execute-api.eu-central-1.amazonaws.com/dev/api/get-auth-url";
 
+    // Add an event listener to the button, so when it's clicked, the following code runs
     getAuthUrlButton.onclick = function () {
+      // Make a request to the getAuthURL endpoint
       fetch(getAuthURL)
         .then(function (response) {
+          // parse the response as JSON
           return response.json();
         })
         .then(function (json) {
+          // Convert the JSON response to a string
           const result = JSON.stringify(json);
-          // we get the value of authUrl
+          // Extract the "authUrl" from the JSON
           const { authUrl } = JSON.parse(result);
-          // then add it to the html
+          // Display the full JSON response in the result element
           resultElement.innerText = result;
+          //Set the href attribute of the resultLink to the authorization URL
           resultLink.href = authUrl;
         });
     };
 
     // --------------- Step 2
+    // Get references to the input field for the code, the button to get the token, and the element to display the token
     const codeValue = document.getElementById("code");
     const getAccessToken = document.getElementById("getToken");
     const accessTokenElement = document.getElementById("accessToken");
+
+    // Define the endpoint URL that provides the access token
     const getToken =
       "https://xwijd65ps9.execute-api.eu-central-1.amazonaws.com/dev/api/token";
 
+    // Add an event listener to the button, so when it's clicked, the following code runs
     getAccessToken.onclick = function () {
+      // Get the value entered in the code input field
       let code = codeValue.value;
 
-      // if the authorization code is not URL-encoded, then URL-encode it.
+      // if the code is not URL-encoded, then URL-encode it.
       if (decodeURIComponent(code) === code) {
         code = encodeURIComponent(codeValue.value);
       }
+
+      //Construct the full URL to request the access token
       const getTokenRequest = getToken + "/" + code;
+      // Make a request to the getTokenRequest URL
       fetch(getTokenRequest)
         .then(function (response) {
           return response.json();
@@ -98,13 +114,21 @@
     };
 
     // --------------- Step 3
+
+    // Get references to the button to get events and the element to display the events
     const getEvents = document.getElementById("getEvents");
     const events = document.getElementById("events");
+
+    // Define the endpoint URL to fetch calendar events
     const getCalendarEvents = "https://xwijd65ps9.execute-api.eu-central-1.amazonaws.com/dev/api/get-events";
 
+    // Add an event listener to the button, so when it's clicked, the following code runs
     getEvents.onclick = function () {
+      // Extract the access token from the displayed JSON response
       const { access_token } = JSON.parse(accessTokenElement.innerText);
+      // Construct the full URL to request calendar events using the access token
       const eventRequest = getCalendarEvents + "/" + access_token;
+      // Make a request to the eventRequest URL
       fetch(eventRequest)
         .then(function (response) {
           return response.json();
