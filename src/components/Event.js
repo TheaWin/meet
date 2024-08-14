@@ -1,0 +1,9 @@
+/* eslint-disable semi */
+
+const Event = () => {
+  return (
+    <li></li>
+  );
+}
+
+export default Event;
