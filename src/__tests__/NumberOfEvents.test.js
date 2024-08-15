@@ -7,13 +7,13 @@ describe('<NumberOfEvents /> component', () => {
   let NumberOfEventsComponent;
 
   beforeEach(() => {
-    NumberOfEventsComponent = render(<NumberOfEvents/>);
+    NumberOfEventsComponent = render(<NumberOfEvents />);
   });
 
   test('renders text input', () => {
     const numberTextBox = NumberOfEventsComponent.queryByRole('textbox');
     expect(numberTextBox).toBeInTheDocument();
-    expect(numberTextBox).toHaveClass('number');
+    expect(numberTextBox).toHaveClass('number-of-events-input');
   });
 
   test('the default value for Number of Events is 32', () => {
