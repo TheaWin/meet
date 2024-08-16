@@ -29,6 +29,10 @@ export const getAccessToken = async () => {
       const response = await fetch(
         'https://xwijd65ps9.execute-api.eu-central-1.amazonaws.com/dev/api/get-auth-url'
       );
+      if (!response.ok) {
+        console.error('Failed to fetch auth URL:', response.status, response.statusText);
+        throw new Error('Failed to fetch auth URL');
+      }
       const result = await response.json();
       const { authUrl } = result;
       return (window.location.href = authUrl);
