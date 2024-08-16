@@ -18,7 +18,8 @@ describe('<Event /> component',() => {
   });
 
   test('has event created time', () => {
-    expect(EventComponent.queryByText(event.created)).toBeInTheDocument();
+    const formattedDate = new Date(event.created).toUTCString();
+    expect(EventComponent.queryByText(formattedDate)).toBeInTheDocument();
   })
 
   test('has event location', () => {
