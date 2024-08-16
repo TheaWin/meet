@@ -61,6 +61,22 @@ const getToken = async (code) => {
 
   return access_token;
 }
+
+const removeQuery = () => {
+  let newurl;
+  if (window.history.pushState && window.location.pathname) {
+    newurl =
+      window.location.protocol +
+      '//' +
+      window.location.host +
+      window.location.pathname;
+    window.history.pushState('', '', newurl);
+  } else {
+    newurl = window.location.protocol + '//' + window.location.host;
+    window.history.pushState('', '', newurl);
+  }
+};
+
 /**
  *
  * This function will fetch the list of all events
@@ -77,28 +93,13 @@ export const getEvents = async () => {
 
   const token = await getAccessToken();
 
-  const removeQuery = () => {
-    let newurl;
-    if (window.history.pushState && window.location.pathname) {
-      newurl =
-        window.location.protocol +
-        '//' +
-        window.location.host +
-        window.location.pathname;
-      window.history.pushState('', '', newurl);
-    } else {
-      newurl = window.location.protocol + '//' + window.location.host;
-      window.history.pushState('', '', newurl);
-    }
-  };
-
   if (token) {
     removeQuery();
     const url = 'https://xwijd65ps9.execute-api.eu-central-1.amazonaws.com/dev/api/get-events' + '/' + token;
     const response = await fetch(url);
     const result = await response.json();
     if (result) {
-      localStorage.setItem('lastEvents',JSON.stringify(result.events));
+      localStorage.setItem('lastEvents', JSON.stringify(result.events));
       return result.events;
     } else return null;
   }
