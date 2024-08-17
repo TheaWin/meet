@@ -13,7 +13,7 @@ const CitySearch = ({ allLocations, setCurrentCity, setInfoAlert }) => {
   const handleInputChanged = (event) => {
     const value = event.target.value;
     const filteredLocations = allLocations
-      ? allLocations.filter((location) => { return location.toUpperCase().indexOf(value.toUpperCase()) > -1;}) 
+      ? allLocations.filter((location) => { return location.toUpperCase().indexOf(value.toUpperCase()) > -1; })
       : [];
     setQuery(value);
     setSuggestions(filteredLocations);
