@@ -7,6 +7,9 @@ const EventGenresChart = ({ events }) => {
 
   const genres = ['React', 'JavaScript', 'Node', 'jQuery', 'Angular'];
 
+  const isSmallScreen = window.innerWidth < 600;
+  const outerRadius = isSmallScreen ? 80 : 130;
+
   useEffect(() => {
     setData(getData());
   }, [`${events}`]);
@@ -34,6 +37,7 @@ const EventGenresChart = ({ events }) => {
         fill="#8884d8"
         textAnchor={x > cx ? 'start' : 'end'}
         dominantBaseline="central"
+        style={{fontSize: '13px', whiteSpace: 'pre-wrap' }}
       >
         {`${genres[index]} ${(percent * 100).toFixed(0)}%`}
       </text>
@@ -41,15 +45,20 @@ const EventGenresChart = ({ events }) => {
   };
 
   return (
-    <ResponsiveContainer width="100%" height="100%">
-      <PieChart>
+    <ResponsiveContainer width="100%" height={isSmallScreen ? 300 : 400}>
+      <PieChart margin={{
+        top: 0,
+        right: 40,
+        bottom: 15,
+        left: 70,
+      }}>
         <Pie
           data={data}
           dataKey="value"
           fill="#8884d8"
           labelLine={false}
           label={renderCustomizedLabel}
-          outerRadius={130}
+          outerRadius={outerRadius}
         >
         </Pie>
       </PieChart>
