@@ -97,10 +97,10 @@ input[type="number"] {
 
 .charts-container {
   display: grid;
-  grid-template-columns: 1fr 0.9fr;
+  grid-template-columns: 1.1fr 0.9fr;
 }
 
-@media all and (max-width: 768px) {
+@media all and (max-width: 850px) {
   .charts-container {
     grid-template-columns: 1fr;
   }
