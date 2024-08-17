@@ -6,6 +6,7 @@ const EventGenresChart = ({ events }) => {
   const [data, setData] = useState([]);
 
   const genres = ['React', 'JavaScript', 'Node', 'jQuery', 'Angular'];
+  const colors = ['#8884d8', '#a9a7e5', '#c4c2e9', '#7b7fd0', '#b2b5e8'];
 
   const isSmallScreen = window.innerWidth < 600;
   const outerRadius = isSmallScreen ? 80 : 130;
@@ -60,6 +61,9 @@ const EventGenresChart = ({ events }) => {
           label={renderCustomizedLabel}
           outerRadius={outerRadius}
         >
+          {data.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
+          ))}
         </Pie>
       </PieChart>
     </ResponsiveContainer>

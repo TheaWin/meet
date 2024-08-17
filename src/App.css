@@ -85,6 +85,9 @@ input[type="number"] {
   border-radius: 4px;
   outline: none;
   cursor: pointer;
+  background-color: #a9a7e5;
+  color: #000000;
+  border: #a9a7e5;
 }
 
 .alerts-container {
